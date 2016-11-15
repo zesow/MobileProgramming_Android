@@ -1,4 +1,4 @@
-package com.example.mylogger2;
+package com.example.myloggerreal;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

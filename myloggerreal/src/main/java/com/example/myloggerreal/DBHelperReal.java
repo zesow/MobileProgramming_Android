@@ -1,4 +1,4 @@
-package com.example.mylogger2;
+package com.example.myloggerreal;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -22,7 +22,7 @@ public class DBHelperReal extends SQLiteOpenHelper {
         // 새로운 테이블 생성
         /* 이름은 DOING이고, 자동으로 값이 증가하는 _id 정수형 기본키 컬럼과
         position 정수형 컬럼, content 문자열 컬럼, create_at 문자열 컬럼으로 구성된 테이블을 생성. */
-        db.execSQL("CREATE TABLE DOING3 (_id INTEGER PRIMARY KEY AUTOINCREMENT, position INTEGER, content TEXT,longitude DOUBLE,latitude DOUBLE);");
+        db.execSQL("CREATE TABLE DOING4 (_id INTEGER PRIMARY KEY AUTOINCREMENT, position TEXT, content TEXT,longitude DOUBLE,latitude DOUBLE);");
     }
 
     // DB 업그레이드를 위해 버전이 변경될 때 호출되는 함수
@@ -31,11 +31,11 @@ public class DBHelperReal extends SQLiteOpenHelper {
 
     }
 
-    public void insert(int position, String content,double longitude,double latitude) {
+    public void insert(String position, String content,double longitude,double latitude) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
-        db.execSQL("INSERT INTO DOING3 VALUES(null, '" + position + "','" + content + "','" + longitude + "','" + latitude + "');");
+        db.execSQL("INSERT INTO DOING4 VALUES(null, '" + position + "','" + content + "','" + longitude + "','" + latitude + "');");
         db.close();
     }
 
@@ -46,11 +46,11 @@ public class DBHelperReal extends SQLiteOpenHelper {
         String result = "";
 
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
-        Cursor cursor = db.rawQuery("SELECT * FROM DOING3", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM DOING4", null);
         while (cursor.moveToNext()) {
             result += cursor.getInt(0)
                     + " : "
-                    + cursor.getInt(1)
+                    + cursor.getString(1)
                     + " | "
                     + cursor.getString(2)
                     + " | "

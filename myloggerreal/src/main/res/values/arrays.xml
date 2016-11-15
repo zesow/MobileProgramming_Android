@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="doing">
+        <item >밥먹기</item>
+        <item >카페가기</item>
+        <item >PC방</item>
+        <item >노래방</item>
+        <item >당구장</item>
+        <item >영화</item>
+        <item >술집</item>
+    </string-array>
+</resources>

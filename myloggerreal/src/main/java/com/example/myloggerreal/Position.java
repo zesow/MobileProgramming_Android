@@ -1,4 +1,4 @@
-package com.example.mylogger2;
+package com.example.myloggerreal;
 
 /**
  * Created by YooMoonSang on 2016. 11. 12..

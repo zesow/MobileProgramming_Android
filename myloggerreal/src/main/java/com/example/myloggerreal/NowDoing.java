@@ -64,9 +64,7 @@ public class NowDoing extends AppCompatActivity {
                         //여기에 이벤트를 적어주세요
                         //Toast.makeText(getApplicationContext(), "선택한 일, 좌표 데이터베이스에 저장.", Toast.LENGTH_LONG).show();
                         content=editText.getText().toString() ;
-
-
-
+                        /*
                         Intent intent = new Intent(
                                 getApplicationContext(), // 현재 화면의 제어권자
                                 ShowDBReal.class); // 다음 넘어갈 클래스 지정
@@ -74,6 +72,41 @@ public class NowDoing extends AppCompatActivity {
                         intent.putExtra("content",content);
                         intent.putExtra("longitude",ml.longitude);
                         intent.putExtra("latitude",ml.latitude);
+                        startActivity(intent); // 다음 화면으로 넘어간다
+                        */
+                        double longitude=ml.longitude;
+                        double latitude=ml.latitude;
+                        String pReal;
+                        int position=p.getPosition();
+                        if(position==0){
+                            pReal="밥먹기";
+                        }
+                        else if(position==1){
+                            pReal="카페가기";
+                        }
+                        else if(position==2){
+                            pReal="피씨방";
+                        }
+                        else if(position==3){
+                            pReal="노래방";
+                        }
+                        else if(position==4){
+                            pReal="당구장";
+                        }
+                        else if(position==5){
+                            pReal="영화관";
+                        }
+                        else{
+                            pReal="술집";
+                        }
+
+                        final DBHelperReal dbHelper = new DBHelperReal(getApplicationContext(), "doing6.db", null, 1);
+
+                        dbHelper.insert(pReal,content,longitude,latitude,position);
+
+                        Intent intent = new Intent(
+                                getApplicationContext(), // 현재 화면의 제어권자
+                                MainActivity.class); // 다음 넘어갈 클래스 지정
                         startActivity(intent); // 다음 화면으로 넘어간다
                     }
                 }

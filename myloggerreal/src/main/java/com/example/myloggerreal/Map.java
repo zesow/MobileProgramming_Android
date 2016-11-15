@@ -17,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -58,35 +59,26 @@ public class Map extends Activity implements OnMapReadyCallback {
             LatLng position=new LatLng(latitude,longitude);
 
             latLng.add(position);
-
-
-            googleMap.addMarker(
-                    new MarkerOptions()
-                        .position(new LatLng(latitude,longitude))
-                        .title(mkArrayList.get(i).getContent())
-            );
+                /* 디비에 저장된 위도 경도 지도에 표시,누르면 내용 나오게 함. */
+                googleMap.addMarker(
+                        new MarkerOptions()
+                                .position(new LatLng(latitude, longitude))
+                                .title(mkArrayList.get(i).getContent())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                                .alpha(0.4f)
+                );
 
         }
-        /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
-            public boolean onMarkerClick(Marker marker) {
-                String text = "[마커 클릭 이벤트] latitude ="
-                        + marker.getPosition().latitude + ", longitude ="
-                        + marker.getPosition().longitude;
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
-                        .show();
-                return false;
-            }
-        });*/
+        /* 찍힌 마커 순서대로 선 연결해줌. 단, 위도 경도 튄 게 있으면 표시 안하게 예외처리 해줌. */
         for(int i=0;i<latLng.size()-1;i++){
-
-            googleMap.addPolyline(new PolylineOptions().add(latLng.get(i),latLng.get(i+1)).width(5).color(Color.RED));
+                if((latLng.get(i).longitude==0.0 && latLng.get(i).latitude==0.0) || (latLng.get(i+1).longitude==0.0 && latLng.get(i+1).latitude==0.0)) continue;
+                googleMap.addPolyline(new PolylineOptions().add(latLng.get(i), latLng.get(i + 1)).width(10).color(Color.BLUE));
 
         }
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 15));
 
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(11), 2000, null);
     }
 
 
@@ -101,11 +93,9 @@ public class Map extends Activity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
         final DBHelperReal dbHelper = new DBHelperReal(getApplicationContext(), "doing6.db", null, 1);
-
+        /* 위도,경도,메모내용 칼럼을 긁어서 arraylist에 저장 */
         mkArrayList=dbHelper.getMarker();
 
-        //String s=mkArrayList.get(0).content+" "+mkArrayList.get(0).lat+" "+mkArrayList.get(0).lon;
-        //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
 }

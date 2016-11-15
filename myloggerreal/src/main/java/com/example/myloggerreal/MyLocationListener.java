@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 /**
  * Created by YooMoonSang on 2016. 11. 15..
+ * 내 위도,경도를 받아오기 위한 리스너 클래스.
  */
 
 class MyLocationListener implements LocationListener {

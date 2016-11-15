@@ -26,16 +26,14 @@ public class Statistic extends AppCompatActivity {
 
         ArrayList<Integer> mArrayList;
 
-        //Log.d("디버그","여기까지");
-
         mArrayList=dbHelper.getPosition();
-        //Log.d("디버그","여기까지2");
+
         int p0=0,p1=0,p2=0,p3=0,p4=0,p5=0,p6=0;
-        //Log.d("디버그","여기까3");
-        Log.d("디버그","----------------");
+
         for(int i=0;i<mArrayList.size();i++){
             int position=mArrayList.get(i);
 
+            //내가 어떤 행동을 했는지 정수형으로 받은 걸 통계적으로 보여주기 위해 행동에 따라 카운트 해 줌
             if(position==0){
                 p0++;
             }
@@ -57,8 +55,6 @@ public class Statistic extends AppCompatActivity {
             else
                 p6++;
             }
-        String s= p0+" "+p1+" "+p2+" "+p3+" "+p4+" "+p5+" "+p6;
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
 
         ArrayList<Entry> entries = new ArrayList<>();
 
@@ -70,7 +66,7 @@ public class Statistic extends AppCompatActivity {
         entries.add(new Entry(p5,5));
         entries.add(new Entry(p6,6));
 
-        PieDataSet dataset = new PieDataSet(entries," ");
+        PieDataSet dataset = new PieDataSet(entries,"");
 
         ArrayList<String> labels = new ArrayList<String>();
         labels.add("밥먹기");
@@ -82,15 +78,14 @@ public class Statistic extends AppCompatActivity {
         labels.add("술집");
 
         PieData data = new PieData(labels, dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
-        pieChart.setDescription("Description");
+        dataset.setValueTextSize(12);
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChart.setDescription("내가 뭐 했는지 체크하자!");
         pieChart.setData(data);
 
-        pieChart.animateY(5000);
+        pieChart.animateY(3000);
 
         pieChart.saveToGallery("/sd/mychart.jpg", 85); // 85 is the quality of the image
-
-
 
     }
 }
